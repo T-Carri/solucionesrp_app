@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { Box, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-import { Logo } from 'src/components/logo';
+import trace from '../../assets/trace.svg'
+//import { Logo } from 'src/components/logo';
 
 // TODO: Change subtitle text
-
+import Image from 'next/image';
 export const Layout = (props) => {
   const { children } = props;
+
+
+
+
+
 
   return (
     <Box
@@ -79,26 +85,28 @@ export const Layout = (props) => {
               }}
               variant="h1"
             >
-              Welcome to{' '}
+              Soluciones RP control{' '}
               <Box
                 component="a"
                 sx={{ color: '#15B79E' }}
                 target="_blank"
               >
-                Devias Kit
+               
               </Box>
             </Typography>
-            <Typography
+          {/*   <Typography
               align="center"
               sx={{ mb: 3 }}
               variant="subtitle1"
             >
               A professional kit that comes with ready-to-use MUI components.
-            </Typography>
-           {/*  <img
+            </Typography> */}
+             <Image
               alt=""
-              src="/assets/auth-illustration.svg"
-            /> */}
+              src={trace}  
+              width={400} 
+              height={600}
+            /> 
           </Box>
         </Grid>
       </Grid>

@@ -25,8 +25,8 @@ const Page = () => {
   const [method, setMethod] = useState('email');
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123!',
+      email: '',
+      password: '',
       submit: null
     },
     validationSchema: Yup.object({
@@ -71,7 +71,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Login | Devias Kit
+          Login | SolucionesRP
         </title>
       </Head>
       <Box
@@ -96,7 +96,7 @@ const Page = () => {
               spacing={1}
               sx={{ mb: 3 }}
             >
-              <Typography variant="h4">
+           {/*    <Typography variant="h4">
                 Login
               </Typography>
               <Typography
@@ -113,7 +113,9 @@ const Page = () => {
                 >
                   Register
                 </Link>
-              </Typography>
+             
+              </Typography> */}
+
             </Stack>
             <Tabs
               onChange={handleMethodChange}
@@ -179,23 +181,8 @@ const Page = () => {
                 >
                   Continue
                 </Button>
-                <Button
-                  fullWidth
-                  size="large"
-                  sx={{ mt: 3 }}
-                  onClick={handleSkip}
-                >
-                  Skip authentication
-                </Button>
-                <Alert
-                  color="primary"
-                  severity="info"
-                  sx={{ mt: 3 }}
-                >
-                  <div>
-                    You can use <b>demo@devias.io</b> and password <b>Password123!</b>
-                  </div>
-                </Alert>
+           
+           
               </form>
             )}
             {method === 'phoneNumber' && (

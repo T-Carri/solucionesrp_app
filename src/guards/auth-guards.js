@@ -48,7 +48,7 @@ console.log('guard dice:', window.sessionStorage.getItem('authenticated') === 'f
         console.log('Not authenticated, redirecting');
         router
           .replace({
-            pathname: '/auth/Acceso',
+            pathname: '/auth/login',
             query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
           })
           .catch(console.error);

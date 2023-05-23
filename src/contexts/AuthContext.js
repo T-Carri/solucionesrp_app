@@ -8,7 +8,7 @@ import {
 import { auth } from '../config/firebase'
 import PropTypes from 'prop-types'
 import GeneralContext from './GeneralContext'
-import TYPES from '../redux/Types'
+import {TYPES} from '../redux/Types'
 
 const AuthContext = createContext();
 export default AuthContext
