@@ -13,6 +13,7 @@ import {
   Typography,
   useMediaQuery
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 import { items } from './config';
@@ -21,7 +22,8 @@ import { SideNavItem } from './side-nav-item';
 export const SideNav = (props) => {
   const { open, onClose } = props;
   const pathname = usePathname();
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const theme = useTheme()
+  const lgUp = useMediaQuery( theme.breakpoints.up('lg'));
 
   const content = (
     <Scrollbar

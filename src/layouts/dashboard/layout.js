@@ -2,7 +2,10 @@ import { withAuthGuard } from "@/hocs/with-auth-guard";
 import { useCallback, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { styled } from '@mui/material/styles';
+import { TopNav } from "./top-nav";
+import { SideNav } from "./side-nav";
 
+const SIDE_NAV_WIDTH = 280;
 
 const LayoutRoot = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -25,10 +28,39 @@ const LayoutRoot = styled('div')(({ theme }) => ({
     const { children } = props;
     const pathname = usePathname();
 
+    const [openNav, setOpenNav] = useState(false);
+
+  const handlePathnameChange = useCallback(
+    () => {
+      if (openNav) {
+        setOpenNav(false);
+      }
+    },
+    [openNav]
+  );
+
+  useEffect(
+    () => {
+      handlePathnameChange();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pathname]
+  );
+
 
 return(
     <>
+<TopNav onNavOpen={() => setOpenNav(true)} />
+      <SideNav
+        onClose={() => setOpenNav(false)}
+        open={openNav}
+      />
+
+     <LayoutRoot>
+        <LayoutContainer>
     {children}
+      </LayoutContainer>
+    </LayoutRoot>
     </>
 )
 
