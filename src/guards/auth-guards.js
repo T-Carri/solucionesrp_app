@@ -1,17 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import GeneralContext from '@/contexts/GeneralContext';
+ import { useAuth } from '@/hooks/use-auth';
 //aqui un analisis porque estas metiendo firebase
 //import { user } from 'src/contexts/auth-context';
 
 export const AuthGuard = (props) => {
   const { children } = props;
   const router = useRouter();
+  const auth = useAuth()
 
-//aqui un analisis porque estas metiendo firebase
+  const { state}= useContext(GeneralContext)
+
+
+
+//aqui el punto de interseccion para el resolve
+
+
+
 //const { isAuthenticated } = useAuthContext();
 
-const isAuthenticated=false
+//const isAuthenticated = false;
 
   const ignore = useRef(false);
   const [checked, setChecked] = useState(false);
@@ -21,10 +31,10 @@ const isAuthenticated=false
   // triggered and will automatically redirect to sign-in page.
 
   useEffect(
-    () => {
-      if (!router.isReady) {
+    () => { 
+       if (!router.isReady) {
         return;
-      }
+      } 
 
       // Prevent from calling twice in development mode with React.StrictMode enabled
       if (ignore.current) {
@@ -33,20 +43,21 @@ const isAuthenticated=false
 
       ignore.current = true;
 //aqui un analisis porque estas metiendo firebase
-
-      if (!isAuthenticated) {
+console.log('guard dice:', window.sessionStorage.getItem('authenticated') === 'false' )
+      if (window.sessionStorage.getItem('authenticated') === 'false') {
         console.log('Not authenticated, redirecting');
         router
           .replace({
-            pathname: '/auth/login',
+            pathname: '/auth/Acceso',
             query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
           })
           .catch(console.error);
       } else {
+     
         setChecked(true);
       }
     },
-    [router.isReady]
+    [router.isReady, auth.keyRef]
   );
 
   if (!checked) {
@@ -62,10 +73,4 @@ const isAuthenticated=false
 AuthGuard.propTypes = {
   children: PropTypes.node
 };
-
-
-
-
-
-
 
