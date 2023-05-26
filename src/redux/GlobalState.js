@@ -21,6 +21,11 @@ export const GlobalState= (state, action)=>{
                 ...state, 
                 isAuthenticated: false
             }   
+            case TYPES.CLIENTES:
+                return{
+                    ...state, 
+                    clientes: action.payload
+                }
 
             default: 
             return state; 

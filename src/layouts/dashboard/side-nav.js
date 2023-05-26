@@ -73,13 +73,12 @@ export const SideNav = (props) => {
                 color="inherit"
                 variant="subtitle1"
               >
-                Devias
-              </Typography>
+                Nombre de usuario              </Typography>
               <Typography
                 color="neutral.400"
                 variant="body2"
               >
-                Production
+                Perfil, Area: Produccion
               </Typography>
             </div>
             <SvgIcon
@@ -126,7 +125,7 @@ export const SideNav = (props) => {
           </Stack>
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />
-        <Box
+        {/* <Box
           sx={{
             px: 2,
             py: 3
@@ -175,7 +174,7 @@ export const SideNav = (props) => {
           >
             Pro Live Preview
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </Scrollbar>
   );

@@ -1,0 +1,27 @@
+Tambien voy a gregar una pagina y seccion 
+para recordatorios de pagar servicios
+
+
+
+Agregar en GeneralContext
+pero antes crea un poner un modal en componente
+
+crear formulario para agregar cliente 
+pregunta por datos:
+
+Nombre (open), email (open), direccion (open), telefono(open), Tipo de factura (opciones)
+
+Funcion de post de un nuevo cliente
+
+
+
+
+Funcion de get de todos los clientes
+
+Funcion de update de un cliente en electo
+
+
+
+
+
+

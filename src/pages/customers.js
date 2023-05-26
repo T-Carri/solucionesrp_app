@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import { subDays, subHours } from 'date-fns';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
@@ -10,9 +10,11 @@ import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { CustomersTable } from 'src/sections/customer/customers-table';
 import { CustomersSearch } from 'src/sections/customer/customers-search';
 import { applyPagination } from 'src/utils/apply-pagination';
-
+import Modalcomponent from '@/utils/modal';
+import AddNeWClient from '@/sections/customer/FormNewClient';
+import { useGeneral } from '@/hooks/use-general';
 const now = new Date();
-
+//const general =useGeneral();
 const data = [
   {
     id: '5e887ac47eed253091be10cb',
@@ -156,10 +158,12 @@ const data = [
   }
 ];
 
+
 const useCustomers = (page, rowsPerPage) => {
+  const general =useGeneral();
   return useMemo(
     () => {
-      return applyPagination(data, page, rowsPerPage);
+      return applyPagination(general.state.clientes, page, rowsPerPage);
     },
     [page, rowsPerPage]
   );
@@ -175,11 +179,22 @@ const useCustomerIds = (customers) => {
 };
 
 const Page = () => {
+  const general =useGeneral();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const customers = useCustomers(page, rowsPerPage);
   const customersIds = useCustomerIds(customers);
   const customersSelection = useSelection(customersIds);
+
+//button agrega constants
+
+const [open, setOpen] = useState(false);
+const handleOpen = () => setOpen(true);
+
+
+useEffect(()=>{
+general.getTotalClientes()
+}, []) 
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -195,11 +210,13 @@ const Page = () => {
     []
   );
 
+console.log(general.state.clientes)
+ 
   return (
     <>
       <Head>
         <title>
-          Customers | Devias Kit
+          Clientes | Soluciones RP
         </title>
       </Head>
       <Box
@@ -218,9 +235,9 @@ const Page = () => {
             >
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Customers
+                  Clientes
                 </Typography>
-                <Stack
+               {/*  <Stack
                   alignItems="center"
                   direction="row"
                   spacing={1}
@@ -245,7 +262,7 @@ const Page = () => {
                   >
                     Export
                   </Button>
-                </Stack>
+                </Stack> */}
               </Stack>
               <div>
                 <Button
@@ -255,8 +272,9 @@ const Page = () => {
                     </SvgIcon>
                   )}
                   variant="contained"
+                  onClick={handleOpen}
                 >
-                  Add
+                  Agregar
                 </Button>
               </div>
             </Stack>
@@ -276,7 +294,9 @@ const Page = () => {
             />
           </Stack>
         </Container>
+        <Modalcomponent open={open} setOpen={setOpen} children={<AddNeWClient open={open} setOpen={setOpen} />}/>
       </Box>
+    
     </>
   );
 };
