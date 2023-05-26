@@ -73,7 +73,7 @@ export const CustomersTable = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((customer) => {
+              {items&&items.map((customer) => {
                // const isSelected = selected.includes(customer.id);
                // const createdAt = format(customer.createdAt, 'dd/MM/yyyy');
 

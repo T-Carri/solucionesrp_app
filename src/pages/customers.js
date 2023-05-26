@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useContext, useRef } from 'react';
 import Head from 'next/head';
 import { subDays, subHours } from 'date-fns';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
@@ -13,6 +13,9 @@ import { applyPagination } from 'src/utils/apply-pagination';
 import Modalcomponent from '@/utils/modal';
 import AddNeWClient from '@/sections/customer/FormNewClient';
 import { useGeneral } from '@/hooks/use-general';
+import GeneralContext from '@/contexts/GeneralContext';
+import { setDoc, doc, addDoc, collection, query, onSnapshot } from 'firebase/firestore';
+import { db } from '@/config/firebase';
 const now = new Date();
 //const general =useGeneral();
 const data = [
@@ -159,32 +162,32 @@ const data = [
 ];
 
 
-const useCustomers = (page, rowsPerPage) => {
-  const general =useGeneral();
+const useCustomers = ( prop, page, rowsPerPage) => {
+
   return useMemo(
     () => {
-      return applyPagination(general.state.clientes, page, rowsPerPage);
+      return applyPagination(prop, page, rowsPerPage);
     },
     [page, rowsPerPage]
   );
 };
 
-const useCustomerIds = (customers) => {
+/* const useCustomerIds = (customers) => {
   return useMemo(
     () => {
-      return customers.map((customer) => customer.id);
+      return customers.map((customer) => customer.cliente);
     },
     [customers]
   );
-};
+}; */
 
-const Page = () => {
+const Page = ({datos}) => {
   const general =useGeneral();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const customers = useCustomers(page, rowsPerPage);
-  const customersIds = useCustomerIds(customers);
-  const customersSelection = useSelection(customersIds);
+  const customers = useCustomers(datos, page, rowsPerPage);
+  /* const customersIds = useCustomerIds(customers); */
+/*   const customersSelection = useSelection(customersIds); */
 
 //button agrega constants
 
@@ -192,9 +195,9 @@ const [open, setOpen] = useState(false);
 const handleOpen = () => setOpen(true);
 
 
-useEffect(()=>{
+/* useEffect(()=>{
 general.getTotalClientes()
-}, []) 
+}, []) */ 
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -210,7 +213,7 @@ general.getTotalClientes()
     []
   );
 
-console.log(general.state.clientes)
+console.log(datos)
  
   return (
     <>
@@ -282,19 +285,19 @@ console.log(general.state.clientes)
             <CustomersTable
               count={data.length}
               items={customers}
-              onDeselectAll={customersSelection.handleDeselectAll}
-              onDeselectOne={customersSelection.handleDeselectOne}
+          /*     onDeselectAll={customersSelection.handleDeselectAll}
+              onDeselectOne={customersSelection.handleDeselectOne} */
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={customersSelection.handleSelectAll}
-              onSelectOne={customersSelection.handleSelectOne}
+             /*  onSelectAll={customersSelection.handleSelectAll}
+              onSelectOne={customersSelection.handleSelectOne} */
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={customersSelection.selected}
+              /* selected={customersSelection.selected} */
             />
           </Stack>
         </Container>
-        <Modalcomponent open={open} setOpen={setOpen} children={<AddNeWClient open={open} setOpen={setOpen} />}/>
+        <Modalcomponent open={open} setOpen={setOpen} children={<AddNeWClient open={open} setOpen={setOpen} />}/> 
       </Box>
     
     </>
@@ -306,5 +309,23 @@ Page.getLayout = (page) => (
     {page}
   </DashboardLayout>
 );
+
+
+export const getServerSideProps = async () => {
+ //const{getTotalClientes, state } =useContext(GeneralContext) 
+ // const general = useGeneral()
+
+
+
+  const q = collection(db, "clientes")  
+  const r = await 
+
+
+
+  return { props: {datos}}
+
+}
+ 
+
 
 export default Page;
