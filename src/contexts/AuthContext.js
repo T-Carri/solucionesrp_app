@@ -121,7 +121,7 @@ console.log('TEST:', keyRef.current)
  
   return (
     <AuthContext.Provider value={{ user, login, signup, logout, keyRef }}>
-      {children}
+      {loading?null:children}
     </AuthContext.Provider>
   );
 };

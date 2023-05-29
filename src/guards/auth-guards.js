@@ -5,6 +5,7 @@ import GeneralContext from '@/contexts/GeneralContext';
  import { useAuth } from '@/hooks/use-auth';
 //aqui un analisis porque estas metiendo firebase
 //import { user } from 'src/contexts/auth-context';
+import AuthContext from '@/contexts/AuthContext';
 
 export const AuthGuard = (props) => {
   const { children } = props;
@@ -29,8 +30,11 @@ export const AuthGuard = (props) => {
   // Only do authentication check on component mount.
   // This flow allows you to manually redirect the user after sign-out, otherwise this will be
   // triggered and will automatically redirect to sign-in page.
-
-  useEffect(
+    
+  console.log(auth.user)
+  
+  
+   useEffect(
     () => { 
        if (!router.isReady) {
         return;
@@ -44,7 +48,7 @@ export const AuthGuard = (props) => {
       ignore.current = true;
 //aqui un analisis porque estas metiendo firebase
 console.log('guard dice:', window.sessionStorage.getItem('authenticated') === 'false' )
-      if (window.sessionStorage.getItem('authenticated') === 'false') {
+      if (!auth.user) {
         console.log('Not authenticated, redirecting');
         router
           .replace({
@@ -57,7 +61,7 @@ console.log('guard dice:', window.sessionStorage.getItem('authenticated') === 'f
         setChecked(true);
       }
     },
-    [router.isReady, auth.keyRef]
+    [router.isReady]
   );
 
   if (!checked) {
@@ -73,4 +77,5 @@ console.log('guard dice:', window.sessionStorage.getItem('authenticated') === 'f
 AuthGuard.propTypes = {
   children: PropTypes.node
 };
+
 
