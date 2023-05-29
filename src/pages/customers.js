@@ -14,8 +14,9 @@ import Modalcomponent from '@/utils/modal';
 import AddNeWClient from '@/sections/customer/FormNewClient';
 import { useGeneral } from '@/hooks/use-general';
 import GeneralContext from '@/contexts/GeneralContext';
-import { setDoc, doc, addDoc, collection, query, onSnapshot } from 'firebase/firestore';
+import { setDoc, doc, addDoc, collection, query, onSnapshot, getDocs } from 'firebase/firestore';
 import { db } from '@/config/firebase';
+
 const now = new Date();
 //const general =useGeneral();
 const data = [
@@ -183,9 +184,35 @@ const useCustomers = ( prop, page, rowsPerPage) => {
 
 const Page = ({datos}) => {
   const general =useGeneral();
+  const [hack, setHack]=useState(datos)
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const customers = useCustomers(datos, page, rowsPerPage);
+
+
+useEffect(()=>{
+
+  const unsubscribe = onSnapshot(collection(db, "clientes"), (querySnapshot) => {
+    const updatedDatos = querySnapshot.docs.map((doc) => doc.data()); // Serializar los datos de los documentos actualizados
+    setHack(updatedDatos); // Actualizar los datos en el estado
+  });
+
+  return () => unsubscribe();
+/*   const getTotalClientes =async()=>{
+  
+    const q = query(collection(db, "clientes") )
+    await onSnapshot(q, (query)=>{
+    const data=[]
+    query.forEach((doc)=>{
+    data.push(doc.data() )
+  
+                 })
+                
+     dispatch({type:TYPES.CLIENTES, payload: data }) 
+    })}  */
+
+},[])
+
+  const customers = useCustomers(hack, page, rowsPerPage);
   /* const customersIds = useCustomerIds(customers); */
 /*   const customersSelection = useSelection(customersIds); */
 
@@ -312,17 +339,14 @@ Page.getLayout = (page) => (
 
 
 export const getServerSideProps = async () => {
- //const{getTotalClientes, state } =useContext(GeneralContext) 
- // const general = useGeneral()
+
+  const querySnapshot = await getDocs(collection(db, "clientes")); // Obtener instantánea de la colección
+
+  const datos = querySnapshot.docs.map((doc) => doc.data()); // Serializar los datos de los documentos
 
 
 
-  const q = collection(db, "clientes")  
-  const r = await 
-
-
-
-  return { props: {datos}}
+  return { props : {datos}}
 
 }
  

@@ -3,22 +3,27 @@ para recordatorios de pagar servicios
 
 
 
-Agregar en GeneralContext
-pero antes crea un poner un modal en componente
+Haz el auth con serverSideRenderingProps
 
-crear formulario para agregar cliente 
-pregunta por datos:
+subir logo 
 
-Nombre (open), email (open), direccion (open), telefono(open), Tipo de factura (opciones)
-
-Funcion de post de un nuevo cliente
+arreglar opciones para agregar nombre y perfil 
+cambiar lo que esta en Emails y y ponerlo en configuracion 
 
 
+darle vida a la barra buscadora 
+
+En clientes falta el boton de editar 
+y la funcion 
 
 
-Funcion de get de todos los clientes
+ir a cuentas y darle vida
 
-Funcion de update de un cliente en electo
+crear area de emails y darle vida  
+
+crear area de recordatorios de pagos  y darle vida
+
+
 
 
 
