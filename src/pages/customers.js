@@ -4,7 +4,7 @@ import { subDays, subHours } from 'date-fns';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
-import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
+import { Box, Button, CardContent, Container, Grid, Stack, SvgIcon, Typography } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { CustomersTable } from 'src/sections/customer/customers-table';
@@ -16,7 +16,10 @@ import { useGeneral } from '@/hooks/use-general';
 import GeneralContext from '@/contexts/GeneralContext';
 import { setDoc, doc, addDoc, collection, query, onSnapshot, getDocs } from 'firebase/firestore';
 import { db } from '@/config/firebase';
-
+import { CardHeader } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import Card from '@mui/material/Card';
+import IconButton from '@mui/material';
 const now = new Date();
 //const general =useGeneral();
 
@@ -60,7 +63,7 @@ useEffect(()=>{
 
 },[])
 
- 
+                 
   /* const customersIds = useCustomerIds(customers); */
 /*   const customersSelection = useSelection(customersIds); */
 const customers = useCustomers(hack, page, rowsPerPage);
@@ -69,6 +72,10 @@ const customers = useCustomers(hack, page, rowsPerPage);
 const [open, setOpen] = useState(false);
 const handleOpen = () => setOpen(true);
 
+
+const [open1, setOpen1] = useState(false);
+const handleOpen1 = () => setOpen(true);
+const [electo, setElecto] = useState(null)
 
 /* useEffect(()=>{
 general.getTotalClientes()
@@ -88,7 +95,7 @@ general.getTotalClientes()
     []
   );
 
-console.log(datos)
+console.log(open1)
  
   return (
     <>
@@ -115,32 +122,7 @@ console.log(datos)
                 <Typography variant="h4">
                   Clientes
                 </Typography>
-               {/*  <Stack
-                  alignItems="center"
-                  direction="row"
-                  spacing={1}
-                >
-                  <Button
-                    color="inherit"
-                    startIcon={(
-                      <SvgIcon fontSize="small">
-                        <ArrowUpOnSquareIcon />
-                      </SvgIcon>
-                    )}
-                  >
-                    Import
-                  </Button>
-                  <Button
-                    color="inherit"
-                    startIcon={(
-                      <SvgIcon fontSize="small">
-                        <ArrowDownOnSquareIcon />
-                      </SvgIcon>
-                    )}
-                  >
-                    Export
-                  </Button>
-                </Stack> */}
+       
               </Stack>
               <div>
                 <Button
@@ -160,21 +142,45 @@ console.log(datos)
             <CustomersTable
               count={hack.length}
               items={customers}
-          /*     onDeselectAll={customersSelection.handleDeselectAll}
-              onDeselectOne={customersSelection.handleDeselectOne} */
+              setElecto={setElecto}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-             /*  onSelectAll={customersSelection.handleSelectAll}
-              onSelectOne={customersSelection.handleSelectOne} */
+              setOpen1={setOpen1}
               page={page}
               rowsPerPage={rowsPerPage}
-              /* selected={customersSelection.selected} */
+      
             />
           </Stack>
         </Container>
         <Modalcomponent open={open} setOpen={setOpen}>
         <AddNeWClient open={open} setOpen={setOpen} />
-          </Modalcomponent> 
+        
+          </Modalcomponent>, 
+        <Modalcomponent open={open1} setOpen={setOpen1} >
+        <Card>
+        <CardContent>
+
+  <ul>
+  <li>{electo&&electo.cliente}</li>
+  <li></li>
+  <li></li>
+  <li></li>
+
+</ul>
+
+
+       
+
+
+
+          <Button onClick={()=>console.log(electo)}> test</Button>
+
+   
+       
+        </CardContent>
+        
+        </Card>
+          </Modalcomponent>  
       </Box>
     
     </>

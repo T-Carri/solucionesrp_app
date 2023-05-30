@@ -19,7 +19,8 @@ import { useState } from 'react';
 import GeneralContext from '@/contexts/GeneralContext';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
 const currencies = [
   {
     value: null,
@@ -47,19 +48,30 @@ const AddNeWClient = (props) =>{
 const [activaBackdrop, setActivaBackdrop] = useState(false)
 const [succesful, setSuccesful]=useState(false)
 const [error, setError]=useState(false) 
+const [IdUsario, setIdUsuario]= useState(uuidv4())
 const {setOpen}=props
 
 
 
   const general= useGeneral()
+
+/*   useEffect(
+    ()=>{
+      setIdUsuario(uuidv4())
+    }, []
+  )
+ */
+
+
 const formik = useFormik({
     initialValues:{
+        uid:IdUsario,
         cliente:'',
         email:'', 
         direccion: '',
         telefono: '',
-        tipoFactura:'', 
-        submit: null
+        tipoFactura:''
+       
 
     },
 
@@ -97,7 +109,7 @@ const formik = useFormik({
         try {
           setActivaBackdrop(true)
          //Aqui vas a montar los valores en POST 
-         await general.agregaCliente(values).then(console.log('la  info es: ', values))
+         await general.agregaCliente(values, IdUsario ).then(console.log('la  info es: ', values))
             
          setActivaBackdrop(false)
          setSuccesful(true)
@@ -112,6 +124,9 @@ const formik = useFormik({
     }
 
 })
+
+
+
 
 return(
     <>
@@ -192,27 +207,6 @@ return(
                   ))}
                 </TextField>
 
-{/* 
-<Field
-      error={!!(formik.touched.tipoFactura && formik.errors.tipoFactura)}
-      fullWidth
-      helperText={formik.touched.tipoFactura && formik.errors.tipoFactura}
-     id="outlined-select-currency"
-          select
-          label="Tipo de factura"
-          
-          
-          value={formik.values.tipoFactura}
-          onBlur={formik.handleBlur}
-                    onSelect={formik.handleSelect}
-                   
-        >
-          {.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Field> */}   
 <Button   fullWidth color="success" variant="contained" type='submit'> añadir </Button>
     </Stack>
 

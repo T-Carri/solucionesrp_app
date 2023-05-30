@@ -20,9 +20,20 @@ export const GeneralProvider = ({children})=>{
     
 const [state, dispatch] = useReducer(GlobalState, initialState);
 
+
+/* 
 const agregaCliente = async ( datos) => {
   await  addDoc(collection(db, "clientes"),datos);
   }
+ */
+
+
+  const agregaCliente = async ( datos, id) => {
+    await  setDoc(doc(db, "clientes", id),datos);
+    }
+
+
+
 
   const getTotalClientes =async()=>{
   

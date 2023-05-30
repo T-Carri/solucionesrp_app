@@ -18,12 +18,16 @@ import {
 import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { useState } from 'react';
+import Modalcomponent from '@/utils/modal';
 export const CustomersTable = (props) => {
   const {
     count = 0,
     items = [],
     onDeselectAll,
     onDeselectOne,
+    setOpen1,
+    setElecto,
     onPageChange = () => {},
     onRowsPerPageChange,
     onSelectAll,
@@ -32,9 +36,12 @@ export const CustomersTable = (props) => {
     rowsPerPage = 0,
     selected = []
   } = props;
-
+  
   const selectedSome = (selected.length > 0) && (selected.length < items.length);
   const selectedAll = (items.length > 0) && (selected.length === items.length);
+
+
+
 
   return (
     <Card>
@@ -70,6 +77,9 @@ export const CustomersTable = (props) => {
                 </TableCell>
                 <TableCell>
                   Tipo de factura
+                </TableCell>
+                <TableCell>
+                  Editar
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -123,10 +133,16 @@ export const CustomersTable = (props) => {
                       {customer.tipoFactura}
                     </TableCell>
                     <TableCell>
-                      <Button>
-<EditNoteIcon/>
+                      <Button onClick={()=>{
+                          setOpen1(true)
+                          setElecto(customer)
+                      }}>
+  <EditNoteIcon/>
 
                       </Button>
+
+      
+
                     </TableCell>
                   </TableRow>
                 );
