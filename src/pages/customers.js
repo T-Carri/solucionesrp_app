@@ -172,7 +172,9 @@ console.log(datos)
             />
           </Stack>
         </Container>
-        <Modalcomponent open={open} setOpen={setOpen} children={<AddNeWClient open={open} setOpen={setOpen} />}/> 
+        <Modalcomponent open={open} setOpen={setOpen}>
+        <AddNeWClient open={open} setOpen={setOpen} />
+          </Modalcomponent> 
       </Box>
     
     </>

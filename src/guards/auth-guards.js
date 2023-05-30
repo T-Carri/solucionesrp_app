@@ -31,7 +31,7 @@ export const AuthGuard = (props) => {
   // This flow allows you to manually redirect the user after sign-out, otherwise this will be
   // triggered and will automatically redirect to sign-in page.
     
-  console.log(auth.user)
+  //console.log(auth.user)
   
   
    useEffect(

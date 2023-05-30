@@ -1,4 +1,4 @@
-import { withAuthGuard } from "@/hocs/with-auth-guard";
+import  withAuthGuard  from "@/hocs/with-auth-guard";
 import { useCallback, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { styled } from '@mui/material/styles';

@@ -26,12 +26,12 @@ export const UserAuth = () => {
 export const AuthProvider = ({ children }) => {
   
   
-  const { state, dispatch}= useContext(GeneralContext)
+ // const { state, dispatch}= useContext(GeneralContext)
   
   const userRef = useRef(null)
   const keyRef = useRef(null)
   
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState('')
   const [loading, setLoading] = useState(true)
   
   let isAuthenticated = false;
@@ -51,18 +51,18 @@ userRef.current=user
 
 window.sessionStorage.setItem('authenticated', 'true');
 
-dispatch({
+/* dispatch({
   type: TYPES.LOGIN , payload: user
 })
-
+ */
 
 
         } else {
           setUser(null)
           window.sessionStorage.setItem('authenticated', 'false');
-          dispatch({
+       /*    dispatch({
             type: TYPES.LOGOUT
-          })
+          }) */
         }
         setLoading(false)
       })
