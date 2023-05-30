@@ -5,6 +5,7 @@ import {
   Box,
   Card,
   Checkbox,
+  Button,
   Stack,
   Table,
   TableBody,
@@ -16,7 +17,7 @@ import {
 } from '@mui/material';
 import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
-
+import EditNoteIcon from '@mui/icons-material/EditNote';
 export const CustomersTable = (props) => {
   const {
     count = 0,
@@ -120,6 +121,12 @@ export const CustomersTable = (props) => {
                     </TableCell>
                     <TableCell>
                       {customer.tipoFactura}
+                    </TableCell>
+                    <TableCell>
+                      <Button>
+<EditNoteIcon/>
+
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );
