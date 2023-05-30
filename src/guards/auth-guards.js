@@ -61,7 +61,7 @@ console.log('guard dice:', window.sessionStorage.getItem('authenticated') === 'f
         setChecked(true);
       }
     },
-    [router.isReady]
+    [router.isReady,  auth.user, router]
   );
 
   if (!checked) {

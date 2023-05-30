@@ -37,10 +37,16 @@ const Backdrop = forwardRef((props, ref) => {
   );
 });
 
+
+
 Backdrop.propTypes = {
   className: PropTypes.string.isRequired,
   open: PropTypes.bool,
 };
+
+
+Backdrop.displayName = 'Backdrop';
+
 
 const StyledModal = styled(Modal)`
   position: fixed;
