@@ -162,7 +162,7 @@ console.log(open1)
 
   <ul>
   <li>{electo&&electo.cliente}</li>
-  <li></li>
+  <li>{electo&&electo.uid}</li>
   <li></li>
   <li></li>
 
@@ -173,12 +173,14 @@ console.log(open1)
 
 
 
-          <Button onClick={()=>console.log(electo)}> test</Button>
+          <Button onClick={()=>{general.eliminaCliente(electo.uid)
+          setOpen1(false)
+          }}> Eliminar cliente</Button>
 
    
        
         </CardContent>
-        
+         
         </Card>
           </Modalcomponent>  
       </Box>

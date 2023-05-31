@@ -13,8 +13,8 @@ import {
   Unstable_Grid2 as Grid
 } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { CompanyCard } from 'src/sections/companies/company-card';
-import { CompaniesSearch } from 'src/sections/companies/companies-search';
+import { CompanyCard } from 'src/sections/cuentas/cuentas-card';
+import { CompaniesSearch } from 'src/sections/cuentas/cuentas-search';
 
 const companies = [
   {
@@ -71,7 +71,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Companies | Devias Kit
+        Cuentas | Soluciones RP
       </title>
     </Head>
     <Box
@@ -90,33 +90,14 @@ const Page = () => (
           >
             <Stack spacing={1}>
               <Typography variant="h4">
-                Companies
+                Cuentas
               </Typography>
               <Stack
                 alignItems="center"
                 direction="row"
                 spacing={1}
               >
-                <Button
-                  color="inherit"
-                  startIcon={(
-                    <SvgIcon fontSize="small">
-                      <ArrowUpOnSquareIcon />
-                    </SvgIcon>
-                  )}
-                >
-                  Import
-                </Button>
-                <Button
-                  color="inherit"
-                  startIcon={(
-                    <SvgIcon fontSize="small">
-                      <ArrowDownOnSquareIcon />
-                    </SvgIcon>
-                  )}
-                >
-                  Export
-                </Button>
+            
               </Stack>
             </Stack>
             <div>
@@ -128,7 +109,7 @@ const Page = () => (
                 )}
                 variant="contained"
               >
-                Add
+                Agrega
               </Button>
             </div>
           </Stack>

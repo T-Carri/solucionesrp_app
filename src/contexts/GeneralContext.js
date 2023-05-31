@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, useReducer } from 'reac
 import { GlobalState } from '../redux/GlobalState';
 import PropTypes from 'prop-types';
 import { db } from '@/config/firebase';
-import { setDoc, doc, addDoc, collection, query, onSnapshot } from 'firebase/firestore';
+import { setDoc, doc, addDoc, collection, query, onSnapshot, deleteDoc } from 'firebase/firestore';
 import {TYPES} from '../redux/Types'
 const GeneralContext = createContext();
 export default GeneralContext
@@ -20,20 +20,22 @@ export const GeneralProvider = ({children})=>{
     
 const [state, dispatch] = useReducer(GlobalState, initialState);
 
-
+//AGREGANDO UN CLIENTE AL DIRECTORIO
 /* 
 const agregaCliente = async ( datos) => {
   await  addDoc(collection(db, "clientes"),datos);
   }
  */
-
-
-  const agregaCliente = async ( datos, id) => {
+ const agregaCliente = async ( datos, id) => {
     await  setDoc(doc(db, "clientes", id),datos);
     }
 
 
 
+
+
+
+//GET LOS CLIENTES
 
   const getTotalClientes =async()=>{
   
@@ -49,7 +51,7 @@ const agregaCliente = async ( datos) => {
     })} 
 
 
-
+//EDITA CLIENTE? 
   const editaCliente = async(id, campo, valor)=>{
     const AP = doc(db, "asignaciones", `${id}`)
 
@@ -60,12 +62,39 @@ const agregaCliente = async ( datos) => {
     })
   }
 
+  //ELIMINA CLIENTE 
+   
+
+const eliminaCliente = async (id)=>{
+  const d= doc(db, "clientes", id)
+  await deleteDoc(d)
+}
+
+
+
+
+
+//CUENTAS
+
+const agregaCuenta = async (datos, id) => {
+  await  setDoc(doc(db, "cuentas", id),datos);
+  }
+
+
+
+
 
   
 
 
 return(
-<GeneralContext.Provider value={{state, dispatch, agregaCliente, getTotalClientes}}>
+<GeneralContext.Provider value={{
+  state, 
+  dispatch, 
+  agregaCliente, 
+  getTotalClientes, 
+  eliminaCliente, 
+  agregaCuenta}}>
 {children}
 </GeneralContext.Provider>
 
