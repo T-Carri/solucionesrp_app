@@ -22,6 +22,6 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 // Initialize Firebase services
 //const firestore = getFirestore(app)
 const auth = getAuth(app)
-const db = getFirestore(app)
+const db = getFirestore()
 // Expose the instances we'll need
 export { app,  auth, db  }

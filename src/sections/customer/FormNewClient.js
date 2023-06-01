@@ -20,7 +20,7 @@ import GeneralContext from '@/contexts/GeneralContext';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect } from 'react';
+
 const currencies = [
   {
     value: null,
@@ -44,6 +44,8 @@ const currencies = [
     },
   ];
 
+
+
 const AddNeWClient = (props) =>{
 const [activaBackdrop, setActivaBackdrop] = useState(false)
 const [succesful, setSuccesful]=useState(false)
@@ -55,6 +57,9 @@ const {setOpen}=props
 
   const general= useGeneral()
 
+
+
+
 /*   useEffect(
     ()=>{
       setIdUsuario(uuidv4())
@@ -63,6 +68,7 @@ const {setOpen}=props
  */
 
 
+  
 const formik = useFormik({
     initialValues:{
         uid:IdUsario,

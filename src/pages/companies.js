@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import Head from 'next/head';
 import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
@@ -15,7 +16,7 @@ import {
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { CompanyCard } from 'src/sections/cuentas/cuentas-card';
 import { CompaniesSearch } from 'src/sections/cuentas/cuentas-search';
-
+import Modalcomponent from '@/utils/modal';
 const companies = [
   {
     id: '2569ce0d517a7f06d3ea1f24',
@@ -67,8 +68,16 @@ const companies = [
   }
 ];
 
-const Page = () => (
-  <>
+const Page = () => {
+   
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+
+ 
+
+
+  return(
+    <>
     <Head>
       <title>
         Cuentas | Soluciones RP
@@ -108,8 +117,9 @@ const Page = () => (
                   </SvgIcon>
                 )}
                 variant="contained"
+                onClick={handleOpen}
               >
-                Agrega
+                Agregar servicio
               </Button>
             </div>
           </Stack>
@@ -142,9 +152,15 @@ const Page = () => (
           </Box>
         </Stack>
       </Container>
+      <Modalcomponent open={open} setOpen={setOpen}>
+      
+        
+          </Modalcomponent>,
     </Box>
   </>
-);
+  )
+ 
+};
 
 Page.getLayout = (page) => (
   <DashboardLayout>
@@ -153,3 +169,44 @@ Page.getLayout = (page) => (
 );
 
 export default Page;
+
+
+
+
+/* 
+planeacion
+ darle vida al boton de agrega cuenta donde pregunte por 
+  
+ Servicio o empresa 
+
+ descripcion
+
+ link o imagen de empresa
+
+ 
+ cuenta  y contrasena 
+
+ boton de agregar otra cuenta
+
+
+
+
+
+
+
+
+ TARJETA TERMINADA MOSTARA DATOS Y  BOTON DE VER DATOS  Y BOTON DE AGREGAR CUENTA
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
